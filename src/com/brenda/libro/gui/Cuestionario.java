@@ -1,16 +1,20 @@
 package com.brenda.libro.gui;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import com.brenda.libro.core.Pregunta;
 
 /**
  *
@@ -26,6 +30,7 @@ public class Cuestionario extends JPanel{
     private boolean[] respuestas;
     private JScrollPane scroll_preguntas;
     private JPanel pan_preguntas;
+    private JButton btn_continuar;
     private Font fuente_h1;
     private Font fuente_h2;
     private Font fuente_pregunta;
@@ -39,9 +44,10 @@ public class Cuestionario extends JPanel{
         pan_preguntas = new JPanel();
         pan_preguntas.setLayout(new BoxLayout(pan_preguntas, BoxLayout.Y_AXIS));
         scroll_preguntas = new JScrollPane(pan_preguntas);
+        btn_continuar = new JButton("Continuar");
         fuente_h1 = new Font("Tahoma", Font.BOLD, 24);
         fuente_h2 = new Font("Tahoma", 1, 18);
-        fuente_pregunta = new Font("Tahoma", 1, 14);
+        fuente_pregunta = new Font("Tahoma", Font.PLAIN, 14);
         fuente_Si_No = new Font("Tahoma", Font.BOLD, 14);
         color_azul = new Color(0, 0, 128);
         color_verde = new Color(0, 188, 133);
@@ -50,6 +56,7 @@ public class Cuestionario extends JPanel{
     }
 
     private void inicializar() {
+        setLayout(new GridLayout());
         add(scroll_preguntas);
         setBackground(Color.white);
         pan_preguntas.setBackground(Color.white);
@@ -72,6 +79,7 @@ public class Cuestionario extends JPanel{
             case ENCABEZADO_H2:
                 JLabel respSi = new JLabel("SI");
                 JLabel respNo = new JLabel("NO");
+                pan_header.setLayout(new GridBagLayout());
                 GridBagConstraints c = new GridBagConstraints();
                 txt_header.setFont(fuente_h2);
                 txt_header.setForeground(color_verde);
@@ -79,20 +87,28 @@ public class Cuestionario extends JPanel{
                 respSi.setForeground(color_azul);
                 respNo.setFont(fuente_Si_No);
                 respNo.setForeground(color_azul);
-                pan_header.setLayout(new GridBagLayout());
                 //poner a la vista
                 c.gridx = 0;
                 c.gridy = 0;
-                c.anchor = GridBagConstraints.LINE_START;
+                c.gridwidth = 2;
                 c.gridheight = 1;
-                c.gridwidth = 6;
+                c.weightx = 1.0;
+                c.anchor = GridBagConstraints.WEST;
                 pan_header.add(txt_header, c);
-                c.gridx = 7;
+                c.gridx = 2;
                 c.gridy = 0;
                 c.gridwidth = 1;
+                c.gridheight = 1;
+                c.weightx = 1.0;
+                c.anchor = GridBagConstraints.CENTER;
                 pan_header.add(respSi);
-                c.gridx = 8;
-                pan_header.add(respNo);
+                c.gridx = 3;
+                c.gridy = 0;
+                c.gridwidth = 1;
+                c.gridheight = 1;
+                c.weightx = 1.0;
+//                c.anchor = GridBagConstraints.WEST;
+                pan_header.add(respNo, c);
                 break;
                 default:
                     break;
@@ -103,27 +119,43 @@ public class Cuestionario extends JPanel{
     public void agregarPregunta(String pregunta, int tipo, boolean importa){
         JPanel pan_pregunta = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-        JLabel txt_pregunta = new JLabel(pregunta);
+        Pregunta txt_pregunta = new Pregunta(conteoPreguntas, pregunta);
         JRadioButton preg_SI = new JRadioButton("");
         JRadioButton preg_NO = new JRadioButton("");
         ButtonGroup buttG =  new ButtonGroup();
         JTextArea registro = new JTextArea();//va aqui?
         buttG.add(preg_SI);
         buttG.add(preg_NO);
+        preg_NO.setBackground(color_blanco);
+        preg_SI.setBackground(color_blanco);
+        pan_pregunta.setBackground(color_blanco);
+        txt_pregunta.setForeground(color_azul);
+        txt_pregunta.setFont(fuente_pregunta);
         
         switch(tipo){
             //depende del tipo el como se acomode la pregunta
             case TIPO_SI_NO:
-                c.gridwidth = 6;
-                c.gridheight = 1;
                 c.gridx = 0;
                 c.gridy = 0;
-                c.anchor = GridBagConstraints.LINE_START;
+                c.gridwidth = 2;
+                c.gridheight = 1;
+                c.weightx = 1.0;
+                c.anchor = GridBagConstraints.WEST;
                 pan_pregunta.add(txt_pregunta, c);
+                c.gridx = 2;
+                c.gridy = 0;
                 c.gridwidth = 1;
-                c.gridx = 7;
+                c.gridheight = 1;
+                c.weightx = 1.0;
+                c.anchor = GridBagConstraints.CENTER;
+//                teamo
                 pan_pregunta.add(preg_SI, c);
-                c.gridx = 8;
+                c.gridx = 3;
+                c.gridy = 0;
+                c.gridwidth = 2;
+                c.gridheight = 1;
+                c.weightx = 1.0;
+                c.anchor = GridBagConstraints.CENTER;
                 pan_pregunta.add(preg_NO, c);
                 break;
             case TIPO_REGISTRAR:
@@ -136,5 +168,10 @@ public class Cuestionario extends JPanel{
     /**
      * Finalizar el cuestionario y pone un boton para validar
      */
-    public void finalizar(){}
+    public void finalizar(){
+        JPanel pan_boton = new JPanel();
+        pan_boton.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        pan_boton.add(btn_continuar);
+        pan_preguntas.add(pan_boton);
+    }
 }
