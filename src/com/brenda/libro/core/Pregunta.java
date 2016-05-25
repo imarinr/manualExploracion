@@ -40,7 +40,6 @@ public class Pregunta extends JLabel{
         } else{
             cadena.append(texto);
             cadena.append(FINAL_HMTL);
-            cadena.setLength(TAMAÑO_ORACION);
         }
         return cadena.toString();
     }

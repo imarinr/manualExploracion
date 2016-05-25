@@ -3,8 +3,6 @@ package com.brenda.libro.gui;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -15,6 +13,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import com.brenda.libro.core.Pregunta;
+import java.awt.BorderLayout;
 
 /**
  *
@@ -77,38 +76,24 @@ public class Cuestionario extends JPanel{
                 pan_header.add(txt_header);
                 break;
             case ENCABEZADO_H2:
+                pan_header.setLayout(new BorderLayout());
                 JLabel respSi = new JLabel("SI");
                 JLabel respNo = new JLabel("NO");
-                pan_header.setLayout(new GridBagLayout());
-                GridBagConstraints c = new GridBagConstraints();
+                JPanel pheader = new JPanel(new FlowLayout(FlowLayout.LEFT, 1, 20));
+                JPanel psiNo = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 20));
                 txt_header.setFont(fuente_h2);
                 txt_header.setForeground(color_verde);
                 respSi.setFont(fuente_Si_No);
                 respSi.setForeground(color_azul);
                 respNo.setFont(fuente_Si_No);
                 respNo.setForeground(color_azul);
-                //poner a la vista
-                c.gridx = 0;
-                c.gridy = 0;
-                c.gridwidth = 2;
-                c.gridheight = 1;
-                c.weightx = 1.0;
-                c.anchor = GridBagConstraints.WEST;
-                pan_header.add(txt_header, c);
-                c.gridx = 2;
-                c.gridy = 0;
-                c.gridwidth = 1;
-                c.gridheight = 1;
-                c.weightx = 1.0;
-                c.anchor = GridBagConstraints.CENTER;
-                pan_header.add(respSi);
-                c.gridx = 3;
-                c.gridy = 0;
-                c.gridwidth = 1;
-                c.gridheight = 1;
-                c.weightx = 1.0;
-//                c.anchor = GridBagConstraints.WEST;
-                pan_header.add(respNo, c);
+                pheader.setBackground(color_blanco);
+                psiNo.setBackground(color_blanco);
+                pheader.add(txt_header);
+                psiNo.add(respSi);
+                psiNo.add(respNo);
+                pan_header.add(pheader, BorderLayout.WEST);
+                pan_header.add(psiNo, BorderLayout.EAST);
                 break;
                 default:
                     break;
@@ -117,8 +102,11 @@ public class Cuestionario extends JPanel{
     }
     
     public void agregarPregunta(String pregunta, int tipo, boolean importa){
-        JPanel pan_pregunta = new JPanel(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
+        JPanel pan_pregunta = new JPanel(new BorderLayout());
+        JPanel ppregunta = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel prespuesta = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 1));
+        
+//        GridBagConstraints c = new GridBagConstraints();
         Pregunta txt_pregunta = new Pregunta(conteoPreguntas, pregunta);
         JRadioButton preg_SI = new JRadioButton("");
         JRadioButton preg_NO = new JRadioButton("");
@@ -128,6 +116,8 @@ public class Cuestionario extends JPanel{
         buttG.add(preg_NO);
         preg_NO.setBackground(color_blanco);
         preg_SI.setBackground(color_blanco);
+        ppregunta.setBackground(color_blanco);
+        prespuesta.setBackground(color_blanco);
         pan_pregunta.setBackground(color_blanco);
         txt_pregunta.setForeground(color_azul);
         txt_pregunta.setFont(fuente_pregunta);
@@ -135,34 +125,21 @@ public class Cuestionario extends JPanel{
         switch(tipo){
             //depende del tipo el como se acomode la pregunta
             case TIPO_SI_NO:
-                c.gridx = 0;
-                c.gridy = 0;
-                c.gridwidth = 2;
-                c.gridheight = 1;
-                c.weightx = 1.0;
-                c.anchor = GridBagConstraints.WEST;
-                pan_pregunta.add(txt_pregunta, c);
-                c.gridx = 2;
-                c.gridy = 0;
-                c.gridwidth = 1;
-                c.gridheight = 1;
-                c.weightx = 1.0;
-                c.anchor = GridBagConstraints.CENTER;
-//                teamo
-                pan_pregunta.add(preg_SI, c);
-                c.gridx = 3;
-                c.gridy = 0;
-                c.gridwidth = 2;
-                c.gridheight = 1;
-                c.weightx = 1.0;
-                c.anchor = GridBagConstraints.CENTER;
-                pan_pregunta.add(preg_NO, c);
+                ppregunta.add(txt_pregunta);
+                prespuesta.add(preg_NO);
+                prespuesta.add(preg_SI);
+                pan_pregunta.add(ppregunta, BorderLayout.WEST);
+                pan_pregunta.add(prespuesta, BorderLayout.EAST);
                 break;
             case TIPO_REGISTRAR:
                 break;
         }
         pan_preguntas.add(pan_pregunta);
         conteoPreguntas++;
+    }
+
+    public JButton getBtn_continuar() {
+        return btn_continuar;
     }
     
     /**
