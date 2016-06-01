@@ -41,7 +41,7 @@ public class LectorPDF extends PagePanel{
                 }
             }
         }, "Carga PDF");
-        t.start();        
+        t.start(); 
     }
     
     public void verPagina(int pag){

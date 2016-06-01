@@ -263,52 +263,58 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
         pan_cuest2 = new Cuestionario(10);
         
         //agregar preguntas y encabezados a los cuestionarios S:
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                pan_cuest1.agregarEncabezado("Exploracion: agudeza visual", Cuestionario.ENCABEZADO_H1);
+                pan_cuest1.agregarEncabezado("Técnica: visión lejana (seis metros)", Cuestionario.ENCABEZADO_H2);
+                pan_cuest1.agregarPregunta("Coloca a tu paciente a 6 metros frente a la carta de Snellen", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarPregunta("Indiquele como debe aplicarse el oclusor, primero en un ojo y posteriormente en el otro", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarPregunta("Examina primero un ojo (preferentemente el derecho) y después el otro", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarPregunta("Indica al paciente que identifique la letra o la figura a la cual se señala", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarPregunta("Debes indicar de arriba hacia abajo, teniendo cuidado de no tapar la letra o figura con el indicador", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarPregunta("Anota la linea que puede leer el paciente y la distania a la que puede leerla", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarEncabezado("Anormalidades de la visión lejana (seis metros)", Cuestionario.ENCABEZADO_H2);
+                pan_cuest1.agregarPregunta("Ametropías:", Cuestionario.TIPO_SI_NO, false);
+                pan_cuest1.agregarPregunta("Miopía", Cuestionario.TIPO_SI_NO, false);
+                pan_cuest1.agregarPregunta("Astigmatismo", Cuestionario.TIPO_SI_NO, false);
+                pan_cuest1.agregarPregunta("Hipermetropía", Cuestionario.TIPO_SI_NO, false);
+                pan_cuest1.agregarEncabezado("Técnica: Visión cercana (35 CMS)", Cuestionario.ENCABEZADO_H2);
+                pan_cuest1.agregarPregunta("Con el paciente sentado otórgale una tabla de la Jaeger e índicale que lea el texto impreso", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarPregunta("La tabla de la Jaeger debes colocarla a una distancia de 35 cm.", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarEncabezado("Anormalidades del examen de la visión cercana a 35 cms", Cuestionario.ENCABEZADO_H2);
+                pan_cuest1.agregarPregunta("Presbicia", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarEncabezado("Exploración de campos visuales", Cuestionario.ENCABEZADO_H1);
+                pan_cuest1.agregarEncabezado("Técnica: Campimetría por confrontación", Cuestionario.ENCABEZADO_H2);
+                pan_cuest1.agregarPregunta("Explorar por separado cada ojo", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarPregunta("Tú y el paciente deben estar sentados frente a frente", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarPregunta("Tu paciente debe cubrir el ojo derecho y ver con su ojo izquierdo hacia tu ojo derecho", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarPregunta("Debes cubrir tu ojo izaquierdo y ver hacia el ojo derecho de tu paciente", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarPregunta("Mueve el objeto de color o luminoso desde la periferia hacia el centro de cada uno de los cuadrantes de la mirada", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarPregunta("El paciente deberá informarte tan luego vea el objeto", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarPregunta("Registra lo observado", Cuestionario.TIPO_SI_NO, false);
+                pan_cuest1.agregarEncabezado("Anormalidades de la exploración por confrontación", Cuestionario.ENCABEZADO_H2);
+                pan_cuest1.agregarPregunta("Estocoma", Cuestionario.TIPO_SI_NO, false);
+                pan_cuest1.agregarPregunta("Hemianopsia", Cuestionario.TIPO_SI_NO, false);
+                pan_cuest1.agregarPregunta("Cuadrantopsia", Cuestionario.TIPO_SI_NO, false);
+                pan_cuest1.agregarEncabezado("Exploración: Campos visuales", Cuestionario.ENCABEZADO_H1);
+                pan_cuest1.agregarEncabezado("Técnica: Exploración por perimetría", Cuestionario.ENCABEZADO_H2);
+                pan_cuest1.agregarPregunta("Explorar por separado cada ojo", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarPregunta("Tu paciente debe estar frente al pizarrón a una distancia de 10 cm. del mismo", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarPregunta("Para explorar el ojo izquierdo, tu faciente debe cubrir si ojo derecho", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarPregunta("Indícale a tu paciente que vea al punto fijo que le designes a la altura de su mirada en el pizarrón", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarPregunta("Debes ubicarte del mismo lado del ojo a explorar", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarPregunta("Mueve un objeto desde la periferia del pizarrón hacia el centro de cada uno de los cuadrantes de la mirada", Cuestionario.TIPO_SI_NO, false);
+                pan_cuest1.agregarPregunta("Indica al paciente que te informe tan luego vea el objeto", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarPregunta("A continuación marca en el pizarrón con una 'X' el sitio indicado por el paciente", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarPregunta("Para explorar el ojo derecho debe cubrir el ojo izquierdo y seguir los pasos anteriores", Cuestionario.TIPO_SI_NO, true);
+                pan_cuest1.agregarPregunta("Registra lo observado", Cuestionario.TIPO_SI_NO, false);
+
+                pan_cuest1.finalizar();
+            }
+        }, "Cuest1").start();
         //cuestionario 1.1
-        pan_cuest1.agregarEncabezado("Exploracion: agudeza visual", Cuestionario.ENCABEZADO_H1);
-        pan_cuest1.agregarEncabezado("Técnica: visión lejana (seis metros)", Cuestionario.ENCABEZADO_H2);
-        pan_cuest1.agregarPregunta("Coloca a tu paciente a 6 metros frente a la carta de Snellen", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarPregunta("Indiquele como debe aplicarse el oclusor, primero en un ojo y posteriormente en el otro", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarPregunta("Examina primero un ojo (preferentemente el derecho) y después el otro", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarPregunta("Indica al paciente que identifique la letra o la figura a la cual se señala", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarPregunta("Debes indicar de arriba hacia abajo, teniendo cuidado de no tapar la letra o figura con el indicador", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarPregunta("Anota la linea que puede leer el paciente y la distania a la que puede leerla", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarEncabezado("Anormalidades de la visión lejana (seis metros)", Cuestionario.ENCABEZADO_H2);
-        pan_cuest1.agregarPregunta("Ametropías:", Cuestionario.TIPO_SI_NO, false);
-        pan_cuest1.agregarPregunta("Miopía", Cuestionario.TIPO_SI_NO, false);
-        pan_cuest1.agregarPregunta("Astigmatismo", Cuestionario.TIPO_SI_NO, false);
-        pan_cuest1.agregarPregunta("Hipermetropía", Cuestionario.TIPO_SI_NO, false);
-        pan_cuest1.agregarEncabezado("Técnica: Visión cercana (35 CMS)", Cuestionario.ENCABEZADO_H2);
-        pan_cuest1.agregarPregunta("Con el paciente sentado otórgale una tabla de la Jaeger e índicale que lea el texto impreso", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarPregunta("La tabla de la Jaeger debes colocarla a una distancia de 35 cm.", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarEncabezado("Anormalidades del examen de la visión cercana a 35 cms", Cuestionario.ENCABEZADO_H2);
-        pan_cuest1.agregarPregunta("Presbicia", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarEncabezado("Exploración de campos visuales", Cuestionario.ENCABEZADO_H1);
-        pan_cuest1.agregarEncabezado("Técnica: Campimetría por confrontación", Cuestionario.ENCABEZADO_H2);
-        pan_cuest1.agregarPregunta("Explorar por separado cada ojo", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarPregunta("Tú y el paciente deben estar sentados frente a frente", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarPregunta("Tu paciente debe cubrir el ojo derecho y ver con su ojo izquierdo hacia tu ojo derecho", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarPregunta("Debes cubrir tu ojo izaquierdo y ver hacia el ojo derecho de tu paciente", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarPregunta("Mueve el objeto de color o luminoso desde la periferia hacia el centro de cada uno de los cuadrantes de la mirada", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarPregunta("El paciente deberá informarte tan luego vea el objeto", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarPregunta("Registra lo observado", Cuestionario.TIPO_SI_NO, false);
-        pan_cuest1.agregarEncabezado("Anormalidades de la exploración por confrontación", Cuestionario.ENCABEZADO_H2);
-        pan_cuest1.agregarPregunta("Estocoma", Cuestionario.TIPO_SI_NO, false);
-        pan_cuest1.agregarPregunta("Hemianopsia", Cuestionario.TIPO_SI_NO, false);
-        pan_cuest1.agregarPregunta("Cuadrantopsia", Cuestionario.TIPO_SI_NO, false);
-        pan_cuest1.agregarEncabezado("Exploración: Campos visuales", Cuestionario.ENCABEZADO_H1);
-        pan_cuest1.agregarEncabezado("Técnica: Exploración por perimetría", Cuestionario.ENCABEZADO_H2);
-        pan_cuest1.agregarPregunta("Explorar por separado cada ojo", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarPregunta("Tu paciente debe estar frente al pizarrón a una distancia de 10 cm. del mismo", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarPregunta("Para explorar el ojo izquierdo, tu faciente debe cubrir si ojo derecho", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarPregunta("Indícale a tu paciente que vea al punto fijo que le designes a la altura de su mirada en el pizarrón", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarPregunta("Debes ubicarte del mismo lado del ojo a explorar", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarPregunta("Mueve un objeto desde la periferia del pizarrón hacia el centro de cada uno de los cuadrantes de la mirada", Cuestionario.TIPO_SI_NO, false);
-        pan_cuest1.agregarPregunta("Indica al paciente que te informe tan luego vea el objeto", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarPregunta("A continuación marca en el pizarrón con una 'X' el sitio indicado por el paciente", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarPregunta("Para explorar el ojo derecho debe cubrir el ojo izquierdo y seguir los pasos anteriores", Cuestionario.TIPO_SI_NO, true);
-        pan_cuest1.agregarPregunta("Registra lo observado", Cuestionario.TIPO_SI_NO, false);
-        
-        pan_cuest1.finalizar();
+            
         
         //propiedades de la ventana
         this.setSize(1080, 720);
