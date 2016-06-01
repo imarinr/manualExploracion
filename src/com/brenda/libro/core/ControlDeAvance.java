@@ -25,7 +25,7 @@ public class ControlDeAvance {
                 System.out.println("se creo el archivo " + arcAvance.getName());
             }
         } catch(IOException ioe){
-            System.out.println("creacion:Ocurrio un error");
+            System.out.println("creacion: Ocurrio un error");
         }
     }
     
@@ -48,11 +48,11 @@ public class ControlDeAvance {
     public void guardarAvance(RegistroDeAvance reg){
         try{
             oos = new ObjectOutputStream(new FileOutputStream(arcAvance));
-            System.out.println("escribir objeto\n"+reg.toString());
+            System.out.println("escribir objeto\n" + reg.toString());
             oos.writeObject(reg);
             oos.close();
         } catch(IOException ioe){
-            System.out.println("Guardar:Ocurrio un error\n" + ioe.getLocalizedMessage());
+            System.out.println("Guardar: Ocurrio un error\n" + ioe.getLocalizedMessage());
         }
     }
 }

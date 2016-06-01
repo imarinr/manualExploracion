@@ -5,13 +5,10 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import com.brenda.libro.core.Pregunta;
 import java.awt.BorderLayout;
 
@@ -102,38 +99,7 @@ public class Cuestionario extends JPanel{
     }
     
     public void agregarPregunta(String pregunta, int tipo, boolean importa){
-        JPanel pan_pregunta = new JPanel(new BorderLayout());
-        JPanel ppregunta = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JPanel prespuesta = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 1));
-        
-//        GridBagConstraints c = new GridBagConstraints();
-        Pregunta txt_pregunta = new Pregunta(conteoPreguntas, pregunta);
-        JRadioButton preg_SI = new JRadioButton("");
-        JRadioButton preg_NO = new JRadioButton("");
-        ButtonGroup buttG =  new ButtonGroup();
-        JTextArea registro = new JTextArea();//va aqui?
-        buttG.add(preg_SI);
-        buttG.add(preg_NO);
-        preg_NO.setBackground(color_blanco);
-        preg_SI.setBackground(color_blanco);
-        ppregunta.setBackground(color_blanco);
-        prespuesta.setBackground(color_blanco);
-        pan_pregunta.setBackground(color_blanco);
-        txt_pregunta.setForeground(color_azul);
-        txt_pregunta.setFont(fuente_pregunta);
-        
-        switch(tipo){
-            //depende del tipo el como se acomode la pregunta
-            case TIPO_SI_NO:
-                ppregunta.add(txt_pregunta);
-                prespuesta.add(preg_NO);
-                prespuesta.add(preg_SI);
-                pan_pregunta.add(ppregunta, BorderLayout.WEST);
-                pan_pregunta.add(prespuesta, BorderLayout.EAST);
-                break;
-            case TIPO_REGISTRAR:
-                break;
-        }
+        Pregunta pan_pregunta = new Pregunta(conteoPreguntas, pregunta, tipo);
         pan_preguntas.add(pan_pregunta);
         conteoPreguntas++;
     }

@@ -309,6 +309,19 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
                 pan_cuest1.agregarPregunta("A continuación marca en el pizarrón con una 'X' el sitio indicado por el paciente", Cuestionario.TIPO_SI_NO, true);
                 pan_cuest1.agregarPregunta("Para explorar el ojo derecho debe cubrir el ojo izquierdo y seguir los pasos anteriores", Cuestionario.TIPO_SI_NO, true);
                 pan_cuest1.agregarPregunta("Registra lo observado", Cuestionario.TIPO_SI_NO, false);
+                pan_cuest1.agregarEncabezado("Anormalidades de la exploración por perimetría", Cuestionario.ENCABEZADO_H2);
+                pan_cuest1.agregarPregunta("Estocoma", Cuestionario.TIPO_SI_NO, false);
+                pan_cuest1.agregarPregunta("Hemianopsia", Cuestionario.TIPO_SI_NO, false);
+                pan_cuest1.agregarPregunta("Cuadrantopsia", Cuestionario.TIPO_SI_NO, false);
+                pan_cuest1.agregarEncabezado("Exploración: visión crómatica", Cuestionario.ENCABEZADO_H1);
+                pan_cuest1.agregarEncabezado("Técnica: visión cromática", Cuestionario.ENCABEZADO_H2);
+                pan_cuest1.agregarPregunta("Con el paciente sentado, explora ambos ojos a la vez, y presentale la primera lámina de Stilling e Ishihara (la designada para detectar seguera de colores)", Cuestionario.TIPO_SI_NO, false);
+                pan_cuest1.agregarPregunta("Pídele al paciente que indique lo que observa en la lámina", Cuestionario.TIPO_SI_NO, false);
+                pan_cuest1.agregarPregunta("Registra lo observado", Cuestionario.TIPO_SI_NO, false);
+                pan_cuest1.agregarPregunta("Luego, presenta al paciente la segunda lámina de Stilling e Ishihara (la designada para detectar la seguera para el rojo y el verde)", Cuestionario.TIPO_SI_NO, false);
+                pan_cuest1.agregarPregunta("Pídele al paciente que indique lo que observa en la lámina", Cuestionario.TIPO_SI_NO, false);
+                pan_cuest1.agregarPregunta("Registra lo observado", Cuestionario.TIPO_SI_NO, false);
+                pan_cuest1.agregarEncabezado("anormalidades de la visión cromática", Cuestionario.ENCABEZADO_H2);
 
                 pan_cuest1.finalizar();
             }
