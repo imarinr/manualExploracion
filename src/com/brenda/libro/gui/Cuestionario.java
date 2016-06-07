@@ -11,18 +11,20 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import com.brenda.libro.core.Pregunta;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JRadioButton;
 
 /**
  *
  * @author Ivan
  */
-public class Cuestionario extends JPanel{
-    public static final int TIPO_SI_NO = 1;
-    public static final int TIPO_REGISTRAR = 2;
+public class Cuestionario extends JPanel implements ActionListener{
     public static final int ENCABEZADO_H1 = 10;
     public static final int ENCABEZADO_H2 = 20;
     
     private int conteoPreguntas;
+    private boolean evaluacion;
     private boolean[] respuestas;
     private JScrollPane scroll_preguntas;
     private JPanel pan_preguntas;
@@ -37,6 +39,8 @@ public class Cuestionario extends JPanel{
     
     public Cuestionario(int numPreguntas){
         respuestas = new boolean[numPreguntas];
+        System.out.println("cuest. noPregs = " + numPreguntas);
+        evaluacion = false;
         pan_preguntas = new JPanel();
         pan_preguntas.setLayout(new BoxLayout(pan_preguntas, BoxLayout.Y_AXIS));
         scroll_preguntas = new JScrollPane(pan_preguntas);
@@ -58,15 +62,15 @@ public class Cuestionario extends JPanel{
         pan_preguntas.setBackground(Color.white);
         conteoPreguntas = 0;
         for (int i = 0; i < respuestas.length; i++) {
-            respuestas[i] = true;
+            respuestas[i] = false;
         }
     }
     
-    public void agregarEncabezado(String text, int hNumber){
+    public void agregarEncabezado(String text, int hNum){
         JPanel pan_header = new JPanel();
         JLabel txt_header = new JLabel(text);
         pan_header.setBackground(color_blanco);
-        switch(hNumber){
+        switch(hNum){
             case ENCABEZADO_H1:
                 txt_header.setFont(fuente_h1);
                 txt_header.setForeground(color_azul);
@@ -99,13 +103,25 @@ public class Cuestionario extends JPanel{
     }
     
     public void agregarPregunta(String pregunta, int tipo, boolean importa){
-        Pregunta pan_pregunta = new Pregunta(conteoPreguntas, pregunta, tipo);
-        pan_preguntas.add(pan_pregunta);
-        conteoPreguntas++;
+        if(conteoPreguntas <= respuestas.length){
+            Pregunta pan_pregunta = new Pregunta(conteoPreguntas, pregunta, tipo);
+            pan_pregunta.getRespSI().addActionListener(this);
+            pan_preguntas.add(pan_pregunta);
+            conteoPreguntas++;
+            if (!importa) {
+                respuestas[conteoPreguntas-1] = true;
+            }
+        } else {
+            System.out.println("no se pueden agregar mas preguntas");
+        }
     }
 
     public JButton getBtn_continuar() {
         return btn_continuar;
+    }
+
+    public boolean getEvaluacion() {
+        return evaluacion;
     }
     
     /**
@@ -116,5 +132,29 @@ public class Cuestionario extends JPanel{
         pan_boton.setLayout(new FlowLayout(FlowLayout.RIGHT));
         pan_boton.add(btn_continuar);
         pan_preguntas.add(pan_boton);
+        btn_continuar.addActionListener(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(btn_continuar)) {
+            for (boolean respuesta : respuestas) {
+                System.out.println("r:" + respuesta);
+                if (respuesta == true) {
+                    evaluacion = true;
+                } else {
+                    evaluacion = false;
+                    break;
+                }
+            }
+            System.out.println("aprobado: " + getEvaluacion());
+        }
+        if (e.getSource() instanceof JRadioButton) {
+            JRadioButton jb = (JRadioButton) e.getSource();
+            if (jb.isSelected()) {
+                respuestas[Pregunta.getPregunta().getNumeroInterno()] = true;
+                System.out.println("resp" + (Pregunta.getPregunta().getNumeroInterno()) + ": " + respuestas[Pregunta.getPregunta().getNumeroInterno()]);
+            }
+        }
     }
 }

@@ -23,7 +23,6 @@ public class LectorPDF extends PagePanel{
     
     public LectorPDF(String rutaArchivo) {
         Thread t = new Thread(new Runnable() {
-
             @Override
             public void run() {
                 try{
@@ -41,14 +40,14 @@ public class LectorPDF extends PagePanel{
                 }
             }
         }, "Carga PDF");
-        t.start(); 
+        t.start();
     }
     
     public void verPagina(int pag){
         PDFPage pagina = archivoPDF.getPage(pag);
         this.useZoomTool(false);
         this.showPage(pagina);
-        this.repaint();
+        this.paintAll(this.getGraphics());
     }
 
     public int getNumPags() {
