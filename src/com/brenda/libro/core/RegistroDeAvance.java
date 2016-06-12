@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.brenda.libro.core;
 
 import java.io.Serializable;
@@ -15,10 +10,19 @@ public class RegistroDeAvance implements Serializable{
     private int capitulo;
     private int parte;
     private int numPreguntas;
-    private boolean[] contestadas;
+    private Boolean[] evaluadas, respuestas;
 
-    public RegistroDeAvance(int numPreguntas) {
-        contestadas = new boolean[numPreguntas];
+    public RegistroDeAvance(int numPregs){
+        capitulo = 1;
+        parte = 1;
+        numPreguntas = 1;
+        evaluadas = new Boolean[numPregs];
+        respuestas = new Boolean[numPregs];
+        for (int i = 0; i < evaluadas.length; i++) {
+            evaluadas[i] = false;
+            respuestas[i] = false;
+        }
+        System.out.println("nuevo Registro de avance");
     }
 
     public int getCapitulo() {
@@ -40,7 +44,6 @@ public class RegistroDeAvance implements Serializable{
     }
 
     public int getNumPreguntas() {
-        System.out.println("numpreg:" + numPreguntas);
         return numPreguntas;
     }
 
@@ -48,19 +51,42 @@ public class RegistroDeAvance implements Serializable{
         this.numPreguntas = numPreguntas;
     }
 
-    public boolean[] getContestadas() {
-        return contestadas;
+    public boolean[] getEvaluadas() {
+        boolean[] resp = new boolean[evaluadas.length];
+        for (int i = 0; i < evaluadas.length; i++) {
+            resp[i] = evaluadas[i];
+        }
+        return resp;
     }
 
-    public void agregarContestada(int pregunta) {
-        if(pregunta < contestadas.length){
-            contestadas[pregunta-1] = true;
+    public void setEvaluadas(boolean[] contestadas) { 
+        System.out.println("setContestadas()" + contestadas);
+        this.evaluadas = new Boolean[contestadas.length];
+        for (int i = 0; i < contestadas.length; i++) {
+            this.evaluadas[i] = contestadas[i];
+        }
+    }
+
+    public boolean[] getRespuestas() {
+        boolean[] resp = new boolean[respuestas.length];
+        for (int i = 0; i < respuestas.length; i++) {
+            resp[i] = respuestas[i];
+        }
+        return resp;
+    }
+
+    public void setRespuestas(boolean[] respuestas) {
+        this.respuestas = new Boolean[respuestas.length];
+        for (int i = 0; i < respuestas.length; i++) {
+            this.respuestas[i] = respuestas[i];
         }
     }
 
     @Override
     public String toString() {
-        return "RegistroDeAvance{" + "capitulo=" + capitulo + ", parte=" + parte + ", numPreguntas=" + numPreguntas + "}";
+        return "RegistroDeAvance{" + "capitulo=" + capitulo + ", parte=" + parte 
+                + ", numPreguntas=" + numPreguntas + ", evaluadas=" + evaluadas 
+                + ", respuestas=" + respuestas + "}";
     }
     
     

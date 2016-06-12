@@ -1,6 +1,6 @@
 package com.brenda.libro.gui;
 
-import com.brenda.libro.core.ControlDeAvance;
+import com.brenda.libro.core.Libro;
 import com.brenda.libro.core.RegistroDeAvance;
 import com.brenda.libro.core.Pregunta;
 import java.awt.BorderLayout;
@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.Stack;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -24,6 +25,7 @@ import javax.swing.event.ListSelectionListener;
  */
 public class VentanaPrincipal extends JFrame implements ActionListener, ListSelectionListener, WindowListener{
 
+    private final String ID ="c0";
     private int capituloSeleccionado = 0;
     private int pagActual = 1;
     private int capActual, parteActual;
@@ -34,19 +36,12 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
     private JButton btn_anterior, btn_sigPag, btn_cuest;
     private JScrollPane js, scroll;
     JList<Object> list_capitulos;
-    RegistroDeAvance reg;
-    ControlDeAvance control;
+    RegistroDeAvance regGen;
+    Stack<Container> stackPantallas;
 
     public VentanaPrincipal(String title) throws HeadlessException {
         super(title);
-        control = new ControlDeAvance();
-        reg = control.cargarRgistro();
-        System.out.println(reg.toString());
-        if (reg == null) {
-            reg = new RegistroDeAvance(42);
-            reg.setCapitulo(1);
-            reg.setParte(1);
-        }
+        stackPantallas = new Stack<>();
         this.inicializarComponentes();
     }
     
@@ -92,19 +87,29 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
                         repaint();
                     break;
             }
-            setActual(lector, js);
-            lector = null;
+            setActual(js);
         }
         if (e.getSource().equals(pan_cuest1.getBtn_continuar())) {
-            boolean aprueba = pan_cuest1.getEvaluacion();
+            boolean aprueba = pan_cuest1.isAprobado();
             if (aprueba) {
                 parteActual = 2;
-                reg.setParte(2);
+                regGen.setParte(parteActual);
+                pan_cuest1.getReg().setEvaluadas(pan_cuest1.getEvaluacion());
+                pan_cuest1.getReg().setRespuestas(pan_cuest1.getRespuestas());
+                Libro.controlAdv.guardarAvance(regGen, ID);
+                Libro.controlAdv.guardarAvance(pan_cuest1.getReg(), pan_cuest1.getID());
                 JOptionPane.showMessageDialog(null, "Puedes continuar");
             } else {
+                pan_cuest1.getReg().setEvaluadas(pan_cuest1.getEvaluacion());
+                pan_cuest1.getReg().setRespuestas(pan_cuest1.getRespuestas());
+                Libro.controlAdv.guardarAvance(pan_cuest1.getReg(), pan_cuest1.getID());
                 JOptionPane.showMessageDialog(null, "Regresa al primer capitulo", null, JOptionPane.ERROR_MESSAGE);
             }
-            setActual(pan_cuest1, list_capitulos);
+            setActual(list_capitulos);
+        }
+        if (e.getSource().equals(pan_cuest1.getBtn_anterior())) {
+            stackPantallas.pop();
+            setActual(stackPantallas.pop());
         }
     }
 
@@ -113,6 +118,12 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
      */
     private void inicializarComponentes() {
         //declaraciones
+        regGen = Libro.controlAdv.cargarRegistro(ID);
+        if (regGen == null) {
+            regGen = new RegistroDeAvance(1);
+            regGen.setParte(1);
+            regGen.setCapitulo(1);
+        }
         pan_pan1 = new Pantalla1();
         list_capitulos = pan_pan1.getList_capitulos();
         pan_text = new PantallaTexto();
@@ -120,9 +131,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
         btn_sigPag = pan_text.getBtn_sigPag();
         btn_cuest = pan_text.getBtn_cuestionario();
         js = new JScrollPane();
-        pan_cuest1 = new Cuestionario(43);
-        pan_cuest12 = new Cuestionario(24);
-        pan_cuest2 = new Cuestionario(10);
+        pan_cuest1 = new Cuestionario(43, "c11");
+//        pan_cuest12 = new Cuestionario(24, "c12");
+//        pan_cuest2 = new Cuestionario(10, "c21");
         
         //agregar preguntas y encabezados a los cuestionarios S:
         //cuestionario 1.1
@@ -167,7 +178,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
                 pan_cuest1.agregarPregunta("Para explorar el ojo izquierdo, tu faciente debe cubrir si ojo derecho", Pregunta.TIPO_SI_NO, true);
                 pan_cuest1.agregarPregunta("Indícale a tu paciente que vea al punto fijo que le designes a la altura de su mirada en el pizarrón", Pregunta.TIPO_SI_NO, true);
                 pan_cuest1.agregarPregunta("Debes ubicarte del mismo lado del ojo a explorar", Pregunta.TIPO_SI_NO, true);
-                pan_cuest1.agregarPregunta("Mueve un objeto desde la periferia del pizarrón hacia el centro de cada uno de los cuadrantes de la mirada", Pregunta.TIPO_SI_NO, false);
+                pan_cuest1.agregarPregunta("Mueve un objeto desde la periferia del pizarrón hacia el centro de cada uno de los cuadrantes de la mirada", Pregunta.TIPO_SI_NO, true);
                 pan_cuest1.agregarPregunta("Indica al paciente que te informe tan luego vea el objeto", Pregunta.TIPO_SI_NO, true);
                 pan_cuest1.agregarPregunta("A continuación marca en el pizarrón con una 'X' el sitio indicado por el paciente", Pregunta.TIPO_SI_NO, true);
                 pan_cuest1.agregarPregunta("Para explorar el ojo derecho debe cubrir el ojo izquierdo y seguir los pasos anteriores", Pregunta.TIPO_SI_NO, true);
@@ -189,7 +200,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
                 pan_cuest1.finalizar();
             }
         }, "Cuest1").start();
-        
+        //cuestionario
         //propiedades de la ventana
         this.setSize(1080, 720);
         this.setLocationRelativeTo(null);
@@ -199,23 +210,36 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
         //agregar elementos a la ventana
         this.add(pan_pan1);
         this.setVisible(true);
+        stackPantallas.push(pan_pan1);
         
         btn_anterior.addActionListener(this);
         btn_sigPag.addActionListener(this);
         btn_cuest.addActionListener(this);
         pan_cuest1.getBtn_continuar().addActionListener(this);
+        pan_cuest1.getBtn_anterior().addActionListener(this);
         pan_cuest2.getBtn_continuar().addActionListener(this);
+        pan_cuest2.getBtn_anterior().addActionListener(this);
         pan_cuest12.getBtn_continuar().addActionListener(this);
+        pan_cuest12.getBtn_anterior().addActionListener(this);
     }
 
-    public void setActual(Container anterior, Container siguiente){
-        anterior.setVisible(false);
+    public void setActual(Container siguiente){
         siguiente.setVisible(true);
         this.getContentPane().removeAll();
         this.getContentPane().add(siguiente);
         this.getContentPane().paintAll(this.getContentPane().getGraphics());
+        stackPantallas.push(siguiente);
     }
     
+    private void resetALL(){
+        switch(JOptionPane.showConfirmDialog(null, "Se reiniciará su avance en el manual", "ADVERTENCIA", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE)){
+            case JOptionPane.OK_OPTION:
+                //toar cada registro de avance, reestablecerlo y guardarlo
+                break;
+            case JOptionPane.CANCEL_OPTION:
+                break;
+        }
+    }
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (e.getValueIsAdjusting() == false) {
@@ -233,18 +257,18 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
                     repaint();
                     scroll = new JScrollPane(lector);
                     pan_text.add(scroll, BorderLayout.CENTER);
-                    setActual(list_capitulos, pan_text);
+                    setActual(pan_text);
                     break;
                 //capitulo 2
                 case 1:
-                    if(reg.getCapitulo() == 2){
+                    if(regGen.getCapitulo() == 2){
                         pan_pan1.setVisible(false);
                         lector = new LectorPDF("doc/docs/i21 - 26.pdf");
                         capActual = 2;
                         parteActual = 2;
                         scroll.setViewportView(lector);
                         pan_text.add(scroll, BorderLayout.CENTER);
-                        setActual(list_capitulos, pan_text);
+                        setActual(pan_text);
                     }
                     repaint();
                     break;
@@ -260,13 +284,22 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
 
     @Override
     public void windowClosing(WindowEvent e) {
-        control.guardarAvance(reg);
-        System.exit(0);
+        //guardar avance de la parte actual
+        try{
+            pan_cuest1.getReg().setEvaluadas(pan_cuest1.getEvaluacion());
+            pan_cuest1.getReg().setRespuestas(pan_cuest1.getRespuestas());
+            Libro.controlAdv.guardarAvance(regGen, ID);
+            Libro.controlAdv.guardarAvance(pan_cuest1.getReg(), pan_cuest1.getID());
+            Libro.controlAdv.guardarAvance(pan_cuest12.getReg(), pan_cuest12.getID());
+            Libro.controlAdv.guardarAvance(pan_cuest2.getReg(), pan_cuest2.getID());
+        } catch(NullPointerException ne){}
+        finally{
+            System.exit(0);
+        }
     }
 
     @Override
     public void windowClosed(WindowEvent e) {
-        control.guardarAvance(reg);
         
     }
 

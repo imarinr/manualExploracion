@@ -17,6 +17,7 @@ import javax.swing.JLabel;
  * @author imarinr
  */
 public class Libro {
+    public static ControlDeAvance controlAdv = new ControlDeAvance();
     public static void main(String[] args) {
         JFrame splash = new JFrame();
         splash.setUndecorated(true);
