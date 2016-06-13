@@ -60,7 +60,6 @@ public class RegistroDeAvance implements Serializable{
     }
 
     public void setEvaluadas(boolean[] contestadas) { 
-        System.out.println("setContestadas()" + contestadas);
         this.evaluadas = new Boolean[contestadas.length];
         for (int i = 0; i < contestadas.length; i++) {
             this.evaluadas[i] = contestadas[i];

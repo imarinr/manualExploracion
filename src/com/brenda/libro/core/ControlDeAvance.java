@@ -23,12 +23,11 @@ public class ControlDeAvance {
     public ControlDeAvance() {
     }
     
-    public RegistroDeAvance cargarRegistro(String id){
+    public synchronized RegistroDeAvance cargarRegistro(String id){
         arcAvance = new File(CARPETA + PREFIJO + id + EXT);
         try{
             ois = new ObjectInputStream(new FileInputStream(arcAvance));
             reg = (RegistroDeAvance) ois.readObject();
-            System.out.println("se leyo correctamente" + reg.toString());
             ois.close();
         } 
         catch(IOException | ClassNotFoundException ioe){
@@ -38,7 +37,7 @@ public class ControlDeAvance {
         return reg;
     }
     
-    public void guardarAvance(RegistroDeAvance reg, String id){
+    public synchronized void guardarAvance(RegistroDeAvance reg, String id){
         arcAvance = new File(CARPETA + PREFIJO + id + EXT);
         if (arcAvance.exists() && reg != null) {
             try{
@@ -52,7 +51,6 @@ public class ControlDeAvance {
         } else if(!arcAvance.exists()){
             try{
                 arcAvance.createNewFile();
-                System.out.println("se creo el archivo " + arcAvance.getName());
                 guardarAvance(reg, id);
             } catch(IOException e){
                 System.out.println("no se pudo crear el archivo" + arcAvance.getPath());
@@ -60,5 +58,10 @@ public class ControlDeAvance {
         } else if (reg == null){
             throw new NullPointerException("El valor del registro en nulo");
         }
+    }
+    
+    public void ResetAvance(String id){
+        File f = new File(CARPETA + PREFIJO + id + EXT);
+        f.delete();
     }
 }

@@ -47,7 +47,7 @@ public class PantallaTexto extends javax.swing.JPanel {
         btn_sigPag.setText("Siguiente");
         jPanel1.add(btn_sigPag);
 
-        btn_cuestionario.setText("Cuestionario");
+        btn_cuestionario.setText("Continuar");
         jPanel1.add(btn_cuestionario);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_END);

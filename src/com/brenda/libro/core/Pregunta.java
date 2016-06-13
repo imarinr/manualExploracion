@@ -1,6 +1,5 @@
 package com.brenda.libro.core;
 
-import com.brenda.libro.gui.Cuestionario;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -28,6 +27,7 @@ import javax.swing.border.LineBorder;
 public class Pregunta extends JPanel implements ActionListener, FocusListener{
     public static final int TIPO_SI_NO = 1;
     public static final int TIPO_REGISTRAR = 2;
+    public static int inicial = 1;
     
     private final int TAMAÑO_ORACION = 100;
     private final String INICIO_HMTL = "<html><body><p>";
@@ -37,8 +37,10 @@ public class Pregunta extends JPanel implements ActionListener, FocusListener{
     private final String EXT = ".txt";
     
     private static Pregunta p = new Pregunta();
+    
     private int numeroInterno, tipo;
     private boolean respondida;
+    private String id;
     private JLabel texto;
     private JRadioButton preg_SI, preg_NO;
     private Font fuente_pregunta;
@@ -68,6 +70,7 @@ public class Pregunta extends JPanel implements ActionListener, FocusListener{
     }
     
     private void inicializarComponentes(){
+        id = "Registro " + inicial + numeroInterno;
         JPanel panPregunta = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JPanel panRespuesta = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 1));
         
@@ -106,7 +109,6 @@ public class Pregunta extends JPanel implements ActionListener, FocusListener{
                 preg_NO.addActionListener(this);
                 break;
             case TIPO_REGISTRAR:
-                String id = "Registro " + numeroInterno;
                 registro.setText(cargarTexto(id));
                 panRespuesta.add(registro);
                 registro.addFocusListener(this);
@@ -204,7 +206,6 @@ public class Pregunta extends JPanel implements ActionListener, FocusListener{
 
     @Override
     public void focusLost(FocusEvent e) {
-        String id = "Registro " + numeroInterno;
         JTextArea jt = (JTextArea)e.getComponent();
         guardarRegistro(jt.getText(), id);
     }

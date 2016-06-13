@@ -18,6 +18,7 @@ import javax.swing.JLabel;
  */
 public class Libro {
     public static ControlDeAvance controlAdv = new ControlDeAvance();
+    
     public static void main(String[] args) {
         JFrame splash = new JFrame();
         splash.setUndecorated(true);
@@ -26,11 +27,12 @@ public class Libro {
         splash.add(imagen);
         splash.setLocationRelativeTo(null);
         splash.setVisible(true);
+        VentanaPrincipal ven = new VentanaPrincipal("Manual de exploración clínica de los nervios craneales II, III, IV, V, VI ");
         try{
             Thread.sleep(2000);
         } catch(InterruptedException e){}
         splash.setVisible(false);
         splash = null;
-        VentanaPrincipal ven = new VentanaPrincipal("Manual de exploración clínica de los nervios craneales II, III, IV, V, VI ");
+        ven.setVisible(true);
     }
 }
