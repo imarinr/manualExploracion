@@ -5,17 +5,23 @@ import com.brenda.libro.core.RegistroDeAvance;
 import com.brenda.libro.core.Pregunta;
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
 import java.io.File;
 import java.util.Stack;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -24,7 +30,8 @@ import javax.swing.event.ListSelectionListener;
  * La ventana principal de la aplicacion
  * @author imarinr
  */
-public class VentanaPrincipal extends JFrame implements ActionListener, ListSelectionListener, WindowListener{
+public class VentanaPrincipal extends JFrame implements ActionListener,
+        ListSelectionListener, WindowListener, WindowStateListener{
 
     private final String ID ="c0";
     private int capituloSeleccionado = 0;
@@ -36,6 +43,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
     private LectorPDF lector;
     private JButton btn_anterior, btn_sigPag, btn_cont;
     private JScrollPane js, scroll;
+    private JDialog pantallaCreditos;
     JList<Object> list_capitulos;
     RegistroDeAvance regGen;
     Stack<Container> stackPantallas;
@@ -603,7 +611,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
                 pan_Cuest22.agregarPregunta("Le indicas que en esa misma línea de mirada, vea un punto lejano designado a 3 metros de distancia de la pupila a explorar.",Pregunta.TIPO_SI_NO,true);		
                 pan_Cuest22.agregarPregunta("Solicita a tu paciente que repita los dos pasos previos, con lo que observas la contracción pupilar con la visión cercana y la dilatación pupilar con la visión lejana.",Pregunta.TIPO_SI_NO,true);		
                 pan_Cuest22.agregarPregunta("Enseguida procede a explorar el otro ojo de la misma manera.",Pregunta.TIPO_SI_NO,true);		
-                pan_Cuest22.agregarPregunta("Registra lo observado.",Pregunta.TIPO_SI_NO,false);
+                pan_Cuest22.agregarPregunta("Registra lo observado.",Pregunta.TIPO_REGISTRAR,false);
                 pan_Cuest22.agregarEncabezado("Anormalidades: exploarción del reflejo de acomodación", Cuestionario.ENCABEZADO_H2);															
                 pan_Cuest22.agregarPregunta("Parálisis.",Pregunta.TIPO_SI_NO,false);		
                 pan_Cuest22.agregarPregunta("Anisocoria.",Pregunta.TIPO_SI_NO,false);		
@@ -618,7 +626,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
                 pan_Cuest22.agregarPregunta("Aproxima el haz luminoso de afuera hacia la línea media del ojo que estas  explorando.",Pregunta.TIPO_SI_NO,true);		
                 pan_Cuest22.agregarPregunta("El estímulo provoca contracción pupilar en el ojo derecho y también del ojo contralateral.",Pregunta.TIPO_SI_NO,true);		
                 pan_Cuest22.agregarPregunta("Procede a explorar del mismo modo el ojo izquierdo.",Pregunta.TIPO_SI_NO,true);		
-                pan_Cuest22.agregarPregunta("Registra lo observado.",Pregunta.TIPO_SI_NO,false);
+                pan_Cuest22.agregarPregunta("Registra lo observado.",Pregunta.TIPO_REGISTRAR,false);
                 pan_Cuest22.agregarEncabezado("Anormaliadades: exploración del reflejo consensual",Cuestionario.ENCABEZADO_H2);															
                 pan_Cuest22.agregarPregunta("Parálisis.",Pregunta.TIPO_SI_NO,false);		
                 pan_Cuest22.agregarPregunta("Anisocoria.",Pregunta.TIPO_SI_NO,false);		
@@ -629,7 +637,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
                 pan_Cuest22.agregarPregunta("Le pides al paciente que lleve su mirada al frente a un punto fijo designado.",Pregunta.TIPO_SI_NO,true);		
                 pan_Cuest22.agregarPregunta("Provocas dolor con un pellizco en el cuello o en el músculo trapecio.",Pregunta.TIPO_SI_NO,true);		
                 pan_Cuest22.agregarPregunta("Procede a observar ambos ojos en búsqueda de la contracción pupilar.",Pregunta.TIPO_SI_NO,true);		
-                pan_Cuest22.agregarPregunta("Registra lo observado.",Pregunta.TIPO_SI_NO,false);		
+                pan_Cuest22.agregarPregunta("Registra lo observado.",Pregunta.TIPO_REGISTRAR,false);		
                 pan_Cuest22.agregarEncabezado("Anormalidades: exploración del reflejo álgido",Cuestionario.ENCABEZADO_H2);																
                 pan_Cuest22.agregarPregunta("Arreflexia",Pregunta.TIPO_SI_NO,false);				
                 pan_Cuest22.agregarEncabezado("Exploración de reflejos endógenos",Cuestionario.ENCABEZADO_H1);
@@ -639,7 +647,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
                 pan_Cuest22.agregarPregunta("Le pides al paciente que lleve su mirada al frente a un punto fijo designado.",Pregunta.TIPO_SI_NO,true);		
                 pan_Cuest22.agregarPregunta("Solicita a tu paciente que se imagine una fuente luminosa extrema que se intensifica frente a él.",Pregunta.TIPO_SI_NO,true);		
                 pan_Cuest22.agregarPregunta("Procede a observar ambos ojos en búsqueda de la contracción pupilar.",Pregunta.TIPO_SI_NO,true); 		
-                pan_Cuest22.agregarPregunta("Registra lo observado.	",Pregunta.TIPO_SI_NO,false);	
+                pan_Cuest22.agregarPregunta("Registra lo observado.",Pregunta.TIPO_REGISTRAR,false);	
                 pan_Cuest22.agregarEncabezado("Anormalidades: exploración del reflejo psíquico",Cuestionario.ENCABEZADO_H2);														
                 pan_Cuest22.agregarPregunta("Arreflexia",Pregunta.TIPO_SI_NO,false);				
                 pan_Cuest22.agregarEncabezado("Exploración de reflejos con movimientos asociados",Cuestionario.ENCABEZADO_H1);
@@ -648,7 +656,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
                 pan_Cuest22.agregarPregunta("Solicita al paciente que cierre el ojo a explorar y enseguida intenta separar los parpados con dos de tus dedos.",Pregunta.TIPO_SI_NO,true);		
                 pan_Cuest22.agregarPregunta("Lo que se busca es una contracción pupilar.",Pregunta.TIPO_SI_NO,true);		
                 pan_Cuest22.agregarPregunta("Procede a explorar del mismo modo el otro ojo.",Pregunta.TIPO_SI_NO,true);		
-                pan_Cuest22.agregarPregunta("Registra lo observado.",Pregunta.TIPO_SI_NO,false);		
+                pan_Cuest22.agregarPregunta("Registra lo observado.",Pregunta.TIPO_REGISTRAR,false);		
                 pan_Cuest22.agregarEncabezado("Anormaliades: exploración del fenómeno del orbicular o de Piltz-Westpahl",Cuestionario.ENCABEZADO_H2);
                 pan_Cuest22.agregarPregunta("Arreflexia",Pregunta.TIPO_SI_NO, false);		
                 pan_Cuest22.agregarEncabezado("Exploración de rflejos con mi¿vimetos asociados",Cuestionario.ENCABEZADO_H1);
@@ -657,7 +665,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
                 pan_Cuest22.agregarPregunta("Indica al paciente que lleve su mirada hacia fuera (en abducción).",Pregunta.TIPO_SI_NO,true);		
                 pan_Cuest22.agregarPregunta("Esto provoca midriasis en el ojo en abducción.",Pregunta.TIPO_SI_NO,true);		
                 pan_Cuest22.agregarPregunta("Procede a explorar el otro ojo de la misma manera.",Pregunta.TIPO_SI_NO,true);		
-                pan_Cuest22.agregarPregunta("Registra lo observado.",Pregunta.TIPO_SI_NO,false);		
+                pan_Cuest22.agregarPregunta("Registra lo observado.",Pregunta.TIPO_REGISTRAR,false);		
                 pan_Cuest22.agregarEncabezado("Anormalidades: exploarción del reflejo de Tournay",Cuestionario.ENCABEZADO_H2);												
                 pan_Cuest22.agregarPregunta("Arreflexia",Pregunta.TIPO_SI_NO,false);
                 pan_Cuest22.finalizar();
@@ -672,7 +680,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
                 pan_Cuest31.agregarEncabezado("Técnica: exploración del músculo oblicuo mayor",Cuestionario.ENCABEZADO_H2);	
                 pan_Cuest31.agregarPregunta("Pide al paciente que siga el objeto que le presentas a nivel del ojo que se explora.",Pregunta.TIPO_SI_NO,true);			
                 pan_Cuest31.agregarPregunta("Moviliza el objeto de color o luminoso hacia abajo y adentro.",Pregunta.TIPO_SI_NO,true);	
-                pan_Cuest31.agregarPregunta("Registra lo observado.",Pregunta.TIPO_SI_NO,false);		
+                pan_Cuest31.agregarPregunta("Registra lo observado.",Pregunta.TIPO_REGISTRAR,false);		
                 pan_Cuest31.agregarEncabezado("Anormalidades: exploarción del músculo oblicuo mayor",Cuestionario.ENCABEZADO_H2);	
                 pan_Cuest31.agregarPregunta("Globo ocular ligeramente elevado.",Pregunta.TIPO_SI_NO,false); 		
                 pan_Cuest31.agregarPregunta("En aducción manifiesta limitación para llevarlo hacia abajo.",Pregunta.TIPO_SI_NO,false);
@@ -687,7 +695,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
                 pan_Cuest41.agregarEncabezado("Técnica: exploarción del músculo recto externo",Cuestionario.ENCABEZADO_H2);
                 pan_Cuest41.agregarPregunta("Le pides al paciente que siga el objeto que le presentas a nivel del ojo que se explora.",Pregunta.TIPO_SI_NO,true);		
                 pan_Cuest41.agregarPregunta("Moviliza el objeto de color o luminoso hacia afuera (abducción).",Pregunta.TIPO_SI_NO,true);		
-                pan_Cuest41.agregarPregunta("Registra lo observado.",Pregunta.TIPO_SI_NO,false);		
+                pan_Cuest41.agregarPregunta("Registra lo observado.",Pregunta.TIPO_REGISTRAR,false);		
                 pan_Cuest41.agregarEncabezado("Anormalidades: exploración del músculo recto externo",Cuestionario.ENCABEZADO_H2);
                 pan_Cuest41.agregarPregunta("El ojo afectado se encuentra en aducción.",Pregunta.TIPO_SI_NO,false);		
                 pan_Cuest41.agregarPregunta("Si los dos ojos están afectados, se aprecian con sus ejes cruzados",Pregunta.TIPO_SI_NO,false);
@@ -705,7 +713,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
                 pan_Cuest42.agregarPregunta("Moviliza el objeto. hacia adentro (aducción) y afuera (abducción).",Pregunta.TIPO_SI_NO,true);		
                 pan_Cuest42.agregarPregunta("Con la mirada hacia dentro el objeto se moviliza hacia arriba y abajo.",Pregunta.TIPO_SI_NO,true);		
                 pan_Cuest42.agregarPregunta("Con la mirada hacia fuera se moviliza el objeto hacia arriba y abajo",Pregunta.TIPO_SI_NO,true); 		
-                pan_Cuest42.agregarPregunta("Registra lo observado.",Pregunta.TIPO_SI_NO,false);
+                pan_Cuest42.agregarPregunta("Registra lo observado.",Pregunta.TIPO_REGISTRAR,false);
                 pan_Cuest42.finalizar();
             }
         }, "cuest 42").start();
@@ -721,7 +729,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
                 pan_Cuest43.agregarPregunta("Se hace girar la silla.",Pregunta.TIPO_SI_NO,true);		
                 pan_Cuest43.agregarPregunta("Se detiene repentinamente la silla.",Pregunta.TIPO_SI_NO,true);		
                 pan_Cuest43.agregarPregunta("El explorador observa los ojos del paciente en busca de nistagmo horizontal.",Pregunta.TIPO_SI_NO,true);		
-                pan_Cuest43.agregarPregunta("Se registra lo observado.",Pregunta.TIPO_SI_NO,false);		
+                pan_Cuest43.agregarPregunta("Se registra lo observado.",Pregunta.TIPO_REGISTRAR,false);		
                 pan_Cuest43.agregarEncabezado("Técnica: exploraciíon de nistagmo optocinético",Cuestionario.ENCABEZADO_H2);
                 pan_Cuest43.agregarPregunta("Se observa la función de los ojos.",Pregunta.TIPO_SI_NO,true);		
                 pan_Cuest43.agregarPregunta("Se le informa al paciente que se hará girar el tambor y que se detendrá repentinamente.",Pregunta.TIPO_SI_NO,true); 		
@@ -729,7 +737,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
                 pan_Cuest43.agregarPregunta("Se hace girar el tambor",Pregunta.TIPO_SI_NO,true);		
                 pan_Cuest43.agregarPregunta("Se detiene repentinamente.",Pregunta.TIPO_SI_NO,true);		
                 pan_Cuest43.agregarPregunta("El explorador observa los ojos del paciente en busca de nistagmo horizontal.",Pregunta.TIPO_SI_NO,true);		
-                pan_Cuest43.agregarPregunta("Se registra lo observado.",Pregunta.TIPO_SI_NO,false);
+                pan_Cuest43.agregarPregunta("Se registra lo observado.",Pregunta.TIPO_REGISTRAR,false);
                 pan_Cuest43.finalizar();
             }
         }, "cuest 43").start();
@@ -775,7 +783,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
         //iniciar desde el avance
         capActual = regGen.getCapitulo();
         parteActual = regGen.getParte();
-        if (regGen.getParte() != 1) {
+        if (regGen.getCapitulo()!= 1 || regGen.getParte() != 1) {
             String[] opciones = {"Sí, continuar", "No, reiniciar", "Ir a inicio"};
             switch(JOptionPane.showOptionDialog(null, "¿Continuar desde donde lo dejaste?\nCapítulo: " + regGen.getCapitulo() + "\nParte: " +
                     regGen.getParte(), "Mensaje", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, null)){
@@ -866,8 +874,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
                 //toar cada registro de avance, reestablecerlo y guardarlo
                 parteActual = 1;
                 capActual = 1;
-                regGen.setParte(parteActual);
-                regGen.setCapitulo(capActual);
+                regGen.reset();
                 Libro.controlAdv.guardarAvance(regGen, ID);
                 pan_Cuest11.reset();
                 pan_Cuest12.reset();
@@ -880,7 +887,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
                 File carpeta = new File("registros");
                 File[] archivos = carpeta.listFiles();
                 for (File archivo : archivos) {
-                    archivo.delete();
+                    archivo.deleteOnExit();
                 }
                 JOptionPane.showMessageDialog(null, "Se ha reestablecido el avance\nPor favor reinicia la aplicación");
                 System.exit(0);
@@ -926,12 +933,38 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
                         setActual(pan_Cuest41);
                         parteActual = 1;
                     }
+                    break;
+                case 4:
+                    //Aqui va la pantalla de creditos
+                    AcercaDe();
+                    break;
             }
             pan_pan1.list_capitulos.clearSelection();
             
         }
     }
 
+    public void AcercaDe(){
+        pantallaCreditos = new JDialog(this);
+        JButton aceptar = new JButton("Aceptar");
+        JLabel imagenFondo = new JLabel(new ImageIcon("res/creditos"));//inicializar
+        JPanel boton = new JPanel(new FlowLayout());
+        
+        boton.add(aceptar);
+        pantallaCreditos.setUndecorated(true);
+        pantallaCreditos.setSize(this.getWidth(), this.getHeight());
+        pantallaCreditos.setLocationRelativeTo(this);
+        pantallaCreditos.add(imagenFondo, BorderLayout.CENTER);
+        pantallaCreditos.add(boton, BorderLayout.SOUTH);
+        pantallaCreditos.setVisible(true);
+        aceptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pantallaCreditos.setVisible(false);
+                pantallaCreditos = null;
+            }
+        });
+    }
     @Override
     public void windowOpened(WindowEvent e) {
         
@@ -995,5 +1028,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener, ListSele
     @Override
     public void windowDeactivated(WindowEvent e) {
         
+    }
+
+    @Override
+    public void windowStateChanged(WindowEvent e) {
+        this.paintAll(this.getGraphics());
     }
 }

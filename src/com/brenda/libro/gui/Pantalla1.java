@@ -40,7 +40,7 @@ public class Pantalla1 extends javax.swing.JPanel {
         list_capitulos.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         list_capitulos.setForeground(new java.awt.Color(0, 0, 128));
         list_capitulos.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "II NC Óptico", "III NC Motor Ocular Común", "IV NC Troclear o Patético", "V NC Motor Ocular Externo" };
+            String[] strings = { "II NC Óptico", "III NC Motor Ocular Común", "IV NC Troclear o Patético", "V NC Motor Ocular Externo", "Acerca de" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });

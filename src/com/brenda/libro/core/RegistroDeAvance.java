@@ -31,7 +31,9 @@ public class RegistroDeAvance implements Serializable{
     }
 
     public void setCapitulo(int capitulo) {
-        this.capitulo = capitulo;
+        if(capitulo > this.capitulo){
+            this.capitulo = capitulo;
+        }
     }
 
     public int getParte() {
@@ -40,7 +42,9 @@ public class RegistroDeAvance implements Serializable{
     }
 
     public void setParte(int parte) {
-        this.parte = parte;
+        if(parte > this.parte){
+            this.parte = parte;
+        }
     }
 
     public int getNumPreguntas() {
@@ -81,6 +85,10 @@ public class RegistroDeAvance implements Serializable{
         }
     }
 
+    public void reset(){
+        capitulo = 1;
+        parte = 1;
+    }
     @Override
     public String toString() {
         return "RegistroDeAvance{" + "capitulo=" + capitulo + ", parte=" + parte 

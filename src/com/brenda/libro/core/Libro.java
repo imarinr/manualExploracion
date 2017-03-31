@@ -27,7 +27,7 @@ public class Libro {
         splash.add(imagen);
         splash.setLocationRelativeTo(null);
         splash.setVisible(true);
-        VentanaPrincipal ven = new VentanaPrincipal("Manual de exploración clínica de los nervios craneales II, III, IV, V, VI ");
+        VentanaPrincipal ven = new VentanaPrincipal("Manual de exploración clínica de los nervios craneales II, III, IV, VI ");
         try{
             Thread.sleep(2000);
         } catch(InterruptedException e){}

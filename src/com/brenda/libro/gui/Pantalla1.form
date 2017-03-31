@@ -44,11 +44,12 @@
               <Color blue="80" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-              <StringArray count="4">
+              <StringArray count="5">
                 <StringItem index="0" value="II NC &#xd3;ptico"/>
                 <StringItem index="1" value="III NC Motor Ocular Com&#xfa;n"/>
                 <StringItem index="2" value="IV NC Troclear o Pat&#xe9;tico"/>
                 <StringItem index="3" value="V NC Motor Ocular Externo"/>
+                <StringItem index="4" value="Acerca de"/>
               </StringArray>
             </Property>
             <Property name="selectionMode" type="int" value="0"/>
